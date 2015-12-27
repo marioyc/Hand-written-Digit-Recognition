@@ -18,7 +18,7 @@ from sigmoidGradient import sigmoidGradient
 
 
 # ================================ Step 1: Loading and Visualizing Data ================================
-print "\nLoading and visualizing Data ...\n"
+"""print "\nLoading and visualizing Data ...\n"
 
 #Reading of the dataset
 # You are free to reduce the number of samples retained for training, in order to reduce the computational cost
@@ -31,14 +31,14 @@ random_instances = range(size_training)
 random.shuffle(random_instances)
 displayData(images_training[random_instances[0:100],:])
 
-raw_input('Program paused. Press enter to continue!!!')
+#raw_input('Program paused. Press enter to continue!!!')
 
 # ================================ Step 2: Setting up Neural Network Structure &  Initialize NN Parameters ================================
 print "\nSetting up Neural Network Structure ...\n"
 
 # Setup the parameters you will use for this exercise
 input_layer_size   = 784        # 28x28 Input Images of Digits
-num_labels         = 10         # 10 labels, from 0 to 9 (one label for each digit) 
+num_labels         = 10         # 10 labels, from 0 to 9 (one label for each digit)
 
 num_of_hidden_layers = int(raw_input('Please select the number of hidden layers: '))
 print "\n"
@@ -52,14 +52,13 @@ raw_input('\nProgram paused. Press enter to continue!!!')
 
 print "\nInitializing Neural Network Parameters ...\n"
 
-# ================================ TODO ================================
-# Fill the randInitializeWeights.py in order to initialize the neural network weights. 
+# Fill the randInitializeWeights.py in order to initialize the neural network weights.
 Theta = randInitializeWeights(layers)
 
 # Unroll parameters
 nn_weights = unroll_params(Theta)
 
-raw_input('\nProgram paused. Press enter to continue!!!')
+raw_input('\nProgram paused. Press enter to continue!!!')"""
 
 # ================================ Step 3: Sigmoid  ================================================
 #  Before you start implementing the neural network, you will first
@@ -67,13 +66,13 @@ raw_input('\nProgram paused. Press enter to continue!!!')
 #  code in the sigmoidGradient.m file.
 #
 
-print "\nEvaluating sigmoid function ...\n"
+"""print "\nEvaluating sigmoid function ...\n"
 
 g = sigmoid(array([1, -0.5, 0,  0.5, 1]))
 print "Sigmoid evaluated at [1 -0.5 0 0.5 1]:  "
 print g
 
-raw_input('\nProgram paused. Press enter to continue!!!')
+raw_input('\nProgram paused. Press enter to continue!!!')"""
 
 # ================================ Step 4: Sigmoid Gradient ================================
 #  Before you start implementing the neural network, you will first
@@ -81,13 +80,13 @@ raw_input('\nProgram paused. Press enter to continue!!!')
 #  code in the sigmoidGradient.m file.
 #
 
-print "\nEvaluating Sigmoid Gradient function ...\n"
+"""print "\nEvaluating Sigmoid Gradient function ...\n"
 
 g = sigmoidGradient(array([1, -0.5, 0,  0.5, 1]))
 print "Sigmoid evaluated at [1 -0.5 0 0.5 1]:  "
 print g
 
-raw_input('\nProgram paused. Press enter to continue!!!')
+raw_input('\nProgram paused. Press enter to continue!!!')"""
 
 # ================================ Step 5: Implement Feedforward (Cost Function) ================================
 
@@ -146,4 +145,3 @@ print "\nTesting Neural Network... \n"
 
 pred  = predict(Theta, images_test)
 print '\nAccuracy: ' + str(mean(labels_test==pred) * 100)
-
