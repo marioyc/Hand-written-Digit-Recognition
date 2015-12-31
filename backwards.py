@@ -57,6 +57,10 @@ def backwards(nn_weights, layers, X, y, num_labels, lambd):
         Theta_grad[1] += nabla2 / m
         Theta_grad[0] += nabla1 / m
 
+    # regularization term
+    for i in range(0,num_layers - 1):
+        Theta_grad[i] += lambd / m * concatenate((zeros((Theta[i].shape[0],1)),Theta[i][:,1:]),axis=1)
+
     # Unroll Params
     Theta_grad = unroll_params(Theta_grad)
 

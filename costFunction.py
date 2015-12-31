@@ -40,6 +40,7 @@ def costFunction(nn_weights, layers, X, y, num_labels, lambd):
     J = (-yv * log(a) - (1 - yv) * log(1 - a)) / m;
     J = sum(J)
 
+    # regularization term
     regularization = 0
     for i in range(0,num_layers - 1):
         regularization += sum(Theta[i][:,1:]**2)
