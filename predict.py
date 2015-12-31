@@ -15,11 +15,9 @@ def predict(Theta, X):
 
     for t in range(0,m):
         a = X[t]
-        print a
 
         for i in range(0,num_layers - 1):
             a = insert(a,0,values=1,axis=0)
-            print Theta[i]
             z = a.dot(transpose(Theta[i]))
             a = sigmoid(z)
 
