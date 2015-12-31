@@ -18,7 +18,7 @@ from sigmoidGradient import sigmoidGradient
 
 
 # ================================ Step 1: Loading and Visualizing Data ================================
-"""print "\nLoading and visualizing Data ...\n"
+print "\nLoading and visualizing Data ...\n"
 
 #Reading of the dataset
 # You are free to reduce the number of samples retained for training, in order to reduce the computational cost
@@ -27,9 +27,9 @@ size_test     = 10000     # number of samples retained for testing
 images_training, labels_training, images_test, labels_test = read_dataset(size_training, size_test)
 
 # Randomly select 100 data points to display
-random_instances = range(size_training)
+"""random_instances = range(size_training)
 random.shuffle(random_instances)
-displayData(images_training[random_instances[0:100],:])
+displayData(images_training[random_instances[0:100],:])"""
 
 #raw_input('Program paused. Press enter to continue!!!')
 
@@ -48,7 +48,7 @@ for i in range(num_of_hidden_layers):
     layers = layers +  [int(raw_input('Please select the number nodes for the ' + str(i+1) + ' hidden layers: '))]
 layers = layers + [num_labels]
 
-raw_input('\nProgram paused. Press enter to continue!!!')
+#raw_input('\nProgram paused. Press enter to continue!!!')
 
 print "\nInitializing Neural Network Parameters ...\n"
 
@@ -58,7 +58,7 @@ Theta = randInitializeWeights(layers)
 # Unroll parameters
 nn_weights = unroll_params(Theta)
 
-raw_input('\nProgram paused. Press enter to continue!!!')"""
+#raw_input('\nProgram paused. Press enter to continue!!!')
 
 # ================================ Step 3: Sigmoid  ================================================
 #  Before you start implementing the neural network, you will first
@@ -89,7 +89,7 @@ print g
 raw_input('\nProgram paused. Press enter to continue!!!')"""
 
 # ================================ Step 5: Implement Feedforward (Cost Function) ================================
-
+"""
 print "\nChecking Cost Function without Regularization (Feedforward) ...\n"
 
 lambd = 0.0
@@ -97,10 +97,10 @@ checkNNCost(lambd)
 
 print 'This value should be about 2.09680198349'
 
-raw_input('\nProgram paused. Press enter to continue!!!')
-
+#raw_input('\nProgram paused. Press enter to continue!!!')
+"""
 # ================================ Step 6: Implement Feedforward with Regularization  ================================
-
+"""
 print "\nChecking Cost Function with Reguralization ... \n"
 
 lambd = 3.0
@@ -109,26 +109,26 @@ checkNNCost(lambd)
 print 'This value should be about 2.1433733821'
 
 
-raw_input('\nProgram paused. Press enter to continue!!!')
-
+#raw_input('\nProgram paused. Press enter to continue!!!')
+"""
 # ================================ Step 7: Implement Backpropagation  ================================
-
+"""
 print "\nChecking Backpropagation without Regularization ...\n"
 
 lambd = 0.0
 checkNNGradients(lambd)
-raw_input('\nProgram paused. Press enter to continue!!!')
-
+#raw_input('\nProgram paused. Press enter to continue!!!')
+"""
 
 # ================================ Step 8: Implement Backpropagation with Regularization ================================
-
+"""
 print "\nChecking Backpropagation with Regularization ...\n"
 
 lambd = 3.0
 checkNNGradients(lambd)
 
-raw_input('\nProgram paused. Press enter to continue!!!')
-
+#raw_input('\nProgram paused. Press enter to continue!!!')
+"""
 
 # ================================ Step 9: Training Neural Networks & Prediction ================================
 print "\nTraining Neural Network... \n"
@@ -139,7 +139,7 @@ lambd = 3.0
 res = fmin_l_bfgs_b(costFunction, nn_weights, fprime = backwards, args = (layers,  images_training, labels_training, num_labels, 1.0), maxfun = 50, factr = 1., disp = True)
 Theta = roll_params(res[0], layers)
 
-raw_input('\nrogram paused. Press enter to continue!!!')
+#raw_input('\nrogram paused. Press enter to continue!!!')
 
 print "\nTesting Neural Network... \n"
 
