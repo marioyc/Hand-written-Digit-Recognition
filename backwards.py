@@ -33,48 +33,31 @@ def backwards(nn_weights, layers, X, y, num_labels, lambd):
     for i in range(0,m):
         yv[ y[i] ][i] = 1
 
-    # ================================ TODO ================================
-    # In this point implement the backpropagation algorithm
-
-    print "layers", layers
-    print "Theta", [x.shape for x in Theta]
-    #print Theta
+    # backpropagation algorithm
 
     for t in range(0,m):
-        print "t = ",t
         a = [X[t]]
         z = []
 
         for i in range(0,num_layers - 1):
-            #a = insert(a,0,values=1,axis=1)
-            #a.insert(0,1)
             b = copy(a[-1])
             b = insert(b,0,values=1,axis=0)
             z.append(b.dot(transpose(Theta[i])))
             a.append(sigmoid(z[-1]))
-        #print "shape a", [x.shape for x in a]
-        #print "shape z", [x.shape for x in z]
+
         delta3 = a[2] - yv[:,t]
-        #print Theta[1].shape, delta3.shape, z[0].shape
         delta2 = transpose(Theta[1][:,1:]).dot(delta3) * sigmoidGradient(z[0])
-        #print "shape delta", delta2.shape, delta3.shape
-        #print delta3.shape,a[2].shape,delta2.shape,a[1].shape
-        #print transpose(a[2]).shape
-        a[0] = insert(a[0],1,values=1,axis=0)
-        a[1] = insert(a[1],1,values=1,axis=0)
+
+        a[0] = insert(a[0],0,values=1,axis=0)
+        a[1] = insert(a[1],0,values=1,axis=0)
 
         nabla2 = delta3[:,None].dot(transpose(a[1][:,None]))
-        #nabla2 = insert(nabla2,0,values=0,axis=1)
         nabla1 = delta2[:,None].dot(transpose(a[0][:,None]))
-        #nabla1 = insert(nabla1,0,values=0,axis=1)
-        print Theta_grad[1].shape, nabla2.shape, Theta_grad[0].shape, nabla1.shape
 
         Theta_grad[1] += nabla2 / m
         Theta_grad[0] += nabla1 / m
 
     # Unroll Params
-    print Theta_grad[1]
-    print Theta_grad[0]
     Theta_grad = unroll_params(Theta_grad)
 
     return Theta_grad
