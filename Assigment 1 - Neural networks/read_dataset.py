@@ -12,12 +12,12 @@ def read_dataset(size_training, size_testing):
     total_testing = len(labels_test)
     if(size_testing > total_testing):
         size_testing = total_testing
-
+    
     random_training_instances = range(total_training)
     random.shuffle(random_training_instances)
     random_testing_instances = range(total_testing)
     random.shuffle(random_training_instances)
-   
+
     images_train = images_train.astype(float64)
     images_test  = images_test.astype(float64)
     images_train = images_train[random_training_instances[0:(size_training)],:]

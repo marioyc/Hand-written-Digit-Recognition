@@ -40,13 +40,14 @@ print "\nSetting up Neural Network Structure ...\n"
 input_layer_size   = 784        # 28x28 Input Images of Digits
 num_labels         = 10         # 10 labels, from 0 to 9 (one label for each digit)
 
-num_of_hidden_layers = int(raw_input('Please select the number of hidden layers: '))
-print "\n"
+num_of_hidden_layers = 1#int(raw_input('Please select the number of hidden layers: '))
+#print "\n"
 
-layers = [input_layer_size]
+"""layers = [input_layer_size]
 for i in range(num_of_hidden_layers):
     layers = layers +  [int(raw_input('Please select the number nodes for the ' + str(i+1) + ' hidden layers: '))]
-layers = layers + [num_labels]
+layers = layers + [num_labels]"""
+layers = [input_layer_size, 5, num_labels]
 
 #raw_input('\nProgram paused. Press enter to continue!!!')
 
@@ -135,8 +136,11 @@ print "\nTraining Neural Network... \n"
 
 #  You should also try different values of the regularization factor
 lambd = 3.0
+maxit = 400
+print "lambd =", lambd
+print "maxit =", maxit
 
-res = fmin_l_bfgs_b(costFunction, nn_weights, fprime = backwards, args = (layers,  images_training, labels_training, num_labels, 1.0), maxfun = 50, factr = 1., disp = True)
+res = fmin_l_bfgs_b(costFunction, nn_weights, fprime = backwards, args = (layers,  images_training, labels_training, num_labels, 1.0), maxfun = maxit, factr = 1., disp = True)
 Theta = roll_params(res[0], layers)
 
 #raw_input('\nrogram paused. Press enter to continue!!!')

@@ -10,14 +10,14 @@ def checkNNCost(lambd):
     num_labels = 3;
     m          = 5;
     layers     = [3, 5, 3]
-    
-    Theta = [] 
+
+    Theta = []
     Theta.append(debugInitializeWeights(hidden_layer_size, input_layer_size))
     Theta.append(debugInitializeWeights(num_labels, hidden_layer_size))
     nn_params = unroll_params(Theta)
-    
+
     X = debugInitializeWeights(m, input_layer_size - 1)
     y = remainder(arange(m)+1, num_labels)
- 
+
     cost = costFunction(nn_params, layers, X, y, num_labels, lambd)
     print 'Cost: ' + str(cost)
