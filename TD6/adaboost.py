@@ -2,6 +2,7 @@
 
 # http://pandas.pydata.org/
 # http://scikit-learn.org/
+# data: https://www.kaggle.com/c/forest-cover-type-prediction/data
 
 import numpy as np
 import pandas as pd
