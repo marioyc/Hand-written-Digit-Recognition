@@ -2,13 +2,10 @@
 
 # http://pandas.pydata.org/
 # http://scikit-learn.org/
-# data: https://www.kaggle.com/c/forest-cover-type-prediction/data
+# data: https://archive.ics.uci.edu/ml/datasets/Covertype
 
 import numpy as np
 import pandas as pd
-import pylab as plt
-from time import sleep
-from IPython import display
 
 
 ### Fetch the data and load it in pandas
@@ -59,40 +56,47 @@ accuracy_score(y_test, y_pred)
 #===================================================================
 ### Train AdaBoost
 
-# Your first exercise is to program AdaBoost.
-# You can call *DecisionTreeClassifier* as above,
-# but you have to figure out how to pass the weight vector (for weighted classification)
-# to the *fit* function using the help pages of scikit-learn. At the end of
-# the loop, compute the training and test errors so the last section of the code can
-# plot the lerning curves.
-#
-# Once the code is finished, play around with the hyperparameters (D and T),
-# and try to understand what is happening.
-
-"""D = 2 # tree depth
+D = 2 # tree depth
 T = 1000 # number of trees
-w = np.ones(X_train.shape[0]) / X_train.shape[0]
+n = X_train.shape[0]
+w = np.ones(n) / n
 training_scores = np.zeros(X_train.shape[0])
 test_scores = np.zeros(X_test.shape[0])
+weak = []
+alphas = []
 
-ts = plt.arange(len(training_scores))
 training_errors = []
 test_errors = []
 
-#===============================
 for t in range(T):
+    clf = DecisionTreeClassifier(max_depth=D)
+    weak.append(clf)
 
-    # Your code should go here
+    clf.fit(X_train, y_train, sample_weight=w)
+    y_pred = clf.predict(X_train)
+    rate = w.dot(np.not_equal(y_pred, y_train)) / sum(w)
+    alpha = np.log(1 / rate - 1)
+    alphas.append(alpha)
 
+    for i in range(n):
+        aux = 0
+        if y_pred[i] != y_train[i]:
+            aux = 1
+        w[i] = w[i] * np.exp(alpha * aux)
 
-#===============================
+for i in range(T):
+    training_scores += alphas[i] * weak[i].predict(X_train)
+    test_scores += alphas[i] * weak[i].predict(X_test)
+    training_errors.append(np.sum(np.sign(training_scores) != y_train) * 1. / X_train.shape[0])
+    test_errors.append(np.sum(np.sign(test_scores) != y_test) * 1. / X_test.shape[0])
 
 #  Plot training and test error
+import matplotlib.pyplot as plt
+import pylab
 plt.plot(training_errors, label="training error")
 plt.plot(test_errors, label="test error")
-plt.legend()"""
-
-
+plt.legend()
+pylab.show()
 
 #===================================================================
 ### Optimize AdaBoost
