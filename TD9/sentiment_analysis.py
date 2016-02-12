@@ -15,6 +15,10 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import roc_curve, auc
 
+#import sys
+#reloa(sys)
+#sys.setdefaultencoding('utf-8')
+
 #%%
 # Part 1: Load data from .csv file
 ############
@@ -28,7 +32,7 @@ with open('movie_reviews.csv') as csv_file:
     for row in reader:
         # skip missing data
         if row[0] and row[1]:
-            data.append(row[0])
+            data.append(row[0].decode('utf-8'))
             y_label = -1 if row[1]=='negative' else 1
             labels.append(y_label)
 
@@ -71,19 +75,10 @@ for doc_id, text in enumerate(data):
 #%%
 # Part 3: Feature extraction and the TF-IDF matrix
 #############
-#
-#  ADD YOUR CODE HERE
-#
-# Create the TF-IFD matrix as described in the lab assignment
-#
-#
-#
-#
-#
-#
-#
-
-
+m = TfidfVectorizer()
+tfidf_matrix = m.fit_transform(data)
+tfidf_matrix = tfidf_matrix.toarray()
+print "Size of TF-IDF matrix: ", tfidf_matrix.shape
 
 
 #%%
@@ -91,15 +86,8 @@ for doc_id, text in enumerate(data):
 #############
 ## Split the data into random train and test subsets. Here we use 40% of the
 # data for testing)
-#
-#   ADD YOUR CODE HERE
-#
-# Use the code given in the description to split the dataset
-#
-#
-#
-#
-
+data_train, data_test, labels_train, labels_test = cross_validation.train_test_split(
+                        tfidf_matrix, labels, test_size=0.4, random_state=42)
 
 
 ## Model learning and prediction
