@@ -15,12 +15,12 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import roc_curve, auc
 
-#%% 
+#%%
 # Part 1: Load data from .csv file
 ############
 with open('movie_reviews.csv') as csv_file:
     reader = csv.reader(csv_file, delimiter=',',quotechar='"')
-        
+
     # Initialize lists for data and class labels
     data =[]
     labels = []
@@ -48,31 +48,20 @@ stopwords = ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you',
                  'there', 'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each', 'few', 'more',
                  'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so',
                  'than', 'too', 'very', 's', 't', 'can', 'will', 'just', 'don', 'should', 'now']
+punctuation = set(string.punctuation)
+stemmer = PorterStemmer()
 
 # For each document in the dataset, do the preprocessing
 for doc_id, text in enumerate(data):
-    
-    #
-    #  ADD YOUR CODE TO THE NEXT BLOCKS
-    
     # Remove punctuation and lowercase
-    # TODO: Add your code here. Store results to a list with name 'doc' 
-    #
-    #
-    #
-        
+    doc = ''.join([w for w in text.lower() if w not in punctuation])
+
     # Stopword removal
-    # TODO: Add your code here. Store results to a list with name 'doc'
-    #
-    #
-    #
-        
+    doc = [w for w in doc.split() if w not in stopwords]
+
     # Stemming
-    # TODO: Add your code here. Store results to a list with name 'doc'
-    #
-    #
-    #
-        
+    doc = [stemmer.stem(w) for w in doc]
+
     # Convert list of words to one string
     doc = ' '.join(w for w in doc)
     data[doc_id] = doc   # list data contains the preprocessed documents
@@ -100,7 +89,7 @@ for doc_id, text in enumerate(data):
 #%%
 # Part 4: Model learning and prediction
 #############
-## Split the data into random train and test subsets. Here we use 40% of the 
+## Split the data into random train and test subsets. Here we use 40% of the
 # data for testing)
 #
 #   ADD YOUR CODE HERE
@@ -123,8 +112,8 @@ for doc_id, text in enumerate(data):
 # for the test data (see lab description)
 #
 #
-#   
-       
+#
+
 #### Evaluation of the prediction
 #
 #
@@ -138,4 +127,3 @@ for doc_id, text in enumerate(data):
 #
 #
 #
-
