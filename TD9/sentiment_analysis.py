@@ -10,14 +10,12 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import BernoulliNB
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.grid_search import GridSearchCV
 from sklearn import cross_validation
 from sklearn.metrics import classification_report
 from sklearn.metrics import accuracy_score
-from sklearn.metrics import roc_curve, auc
-
-#import sys
-#reloa(sys)
-#sys.setdefaultencoding('utf-8')
+#from sklearn.metrics import roc_curve, auc
 
 #%%
 # Part 1: Load data from .csv file
@@ -71,7 +69,6 @@ for doc_id, text in enumerate(data):
     data[doc_id] = doc   # list data contains the preprocessed documents
 
 
-
 #%%
 # Part 3: Feature extraction and the TF-IDF matrix
 #############
@@ -91,27 +88,30 @@ data_train, data_test, labels_train, labels_test = cross_validation.train_test_s
 
 
 ## Model learning and prediction
-## TODO: test different learning algorithms
-#
-#
-#   ADD YOUR CODE HERE
-#
-# Initialize the classification model, fit the parameters and predict results
-# for the test data (see lab description)
-#
-#
-#
+"""clf_nb = BernoulliNB()
+y_score = clf_nb.fit(data_train, labels_train).predict_proba(data_test)
+labels_predicted = clf_nb.predict(data_test)
+
+clf_log = LogisticRegression()
+y_score = clf_log.fit(data_train, labels_train).predict_proba(data_test)
+labels_predicted = clf_log.predict(data_test)
+
+clf_forest = RandomForestClassifier(max_depth=10)
+y_score = clf_forest.fit(data_train, labels_train).predict_proba(data_test)
+labels_predicted = clf_forest.predict(data_test)"""
+
+parameters = [
+        {'kernel':['rbf'], 'C':[1, 2, 4, 8, 16, 32, 100], 'gamma':[1, 0.5, 0.1, 0.01, 0.001]}
+    ]
+
+#{'kernel': 'rbf', 'C': 2, 'gamma': 0.5}
+
+svm = SVC()
+clf_svm = GridSearchCV(svm, parameters)
+y_score = clf_svm.fit(data_train, labels_train)
+labels_predicted = clf_svm.predict(data_test)
+print clf_svm.best_params_
 
 #### Evaluation of the prediction
-#
-#
-#   ADD YOUR CODE HERE
-#
-# Compute precision, recall and F1 score (see description)
-#
-#
-#
-#
-#
-#
-#
+print classification_report(labels_test, labels_predicted)
+print "The accuray score is {:.2%}".format(accuracy_score(labels_test, labels_predicted))
